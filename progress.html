@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+:root {
+  --bg: #08080a;
+  --surface: #101014;
+  --border: #1e1e26;
+  --text: #c8c8cc;
+  --text-dim: #5c5c66;
+  --purple: #7c3aed;
+  --purple-soft: #a67cff;
+  --purple-glow: rgba(124,58,237,.15);
+  --green: #22c55e;
+  --red: #ef4444;
+  --radius: 8px;
+  --font: 'SF Mono','Fira Code','Cascadia Code','JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+::selection{background:var(--purple);color:#fff}
+body{
+  font-family:var(--font);
+  background:var(--bg);color:var(--text);
+  padding:0;width:540px;font-size:13px;
+  -webkit-font-smoothing:antialiased;
+}
+.hide{display:none!important}
+
+/* ─── HEADER ─── */
+.header{
+  display:flex;align-items:center;gap:10px;
+  padding:14px 20px 12px;border-bottom:1px solid var(--border);
+}
+.header .logo{
+  width:28px;height:28px;border-radius:6px;
+  background:var(--purple);display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:700;color:#fff;flex-shrink:0;
+}
+.header h1{font-size:13px;font-weight:600;color:var(--text);letter-spacing:.3px}
+.header .badge{
+  margin-left:auto;font-size:10px;color:var(--text-dim);
+  border:1px solid var(--border);border-radius:4px;padding:2px 7px;
+  letter-spacing:.5px;text-transform:uppercase;
+}
+
+/* ─── LOADING ─── */
+.loading{padding:48px 20px 40px;text-align:center}
+.progress{
+  width:200px;height:4px;margin:0 auto 16px;
+  background:var(--border);border-radius:2px;overflow:hidden;
+}
+.bar{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--purple),var(--purple-soft));
+  border-radius:2px;transition:width .5s cubic-bezier(.4,0,.2,1);
+}
+.msg{font-size:12px;color:var(--text-dim);letter-spacing:.2px}
+.msg .dots::after{content:'';animation:dot .8s steps(3) infinite}
+@keyframes dot{0%{content:'.'}33%{content:'..'}66%{content:'...'}}
+.msg.err{color:var(--red)}
+.msg.ok{color:var(--green)}
+
+/* ─── LOADING SPINNER ─── */
+.spinner{
+  width:28px;height:28px;margin:0 auto 20px;
+  border:2px solid var(--border);border-top-color:var(--purple);
+  border-radius:50%;animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ─── RESULT ─── */
+.result{padding:16px 20px 20px}
+.result-header{
+  display:flex;align-items:center;gap:8px;margin-bottom:12px;
+}
+.result-header .icon{
+  width:6px;height:6px;border-radius:50%;background:var(--green);
+  flex-shrink:0;box-shadow:0 0 6px var(--green);
+}
+.result-header label{
+  font-size:11px;color:var(--text-dim);text-transform:uppercase;
+  letter-spacing:.8px;font-weight:500;
+}
+.result-header .count{
+  margin-left:auto;font-size:11px;color:var(--text-dim);
+  font-variant-numeric:tabular-nums;
+}
+textarea{
+  width:100%;height:300px;padding:14px;
+  background:var(--surface);color:var(--text);
+  border:1px solid var(--border);border-radius:var(--radius);
+  font-family:var(--font);font-size:12px;line-height:1.7;
+  resize:vertical;outline:none;
+  transition:border-color .2s;
+}
+textarea:focus{border-color:var(--purple)}
+.actions{
+  display:flex;gap:8px;margin-top:12px;
+  justify-content:flex-end;
+}
+.btn{
+  padding:7px 18px;border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--surface);color:var(--text-dim);cursor:pointer;
+  font-family:var(--font);font-size:12px;
+  transition:all .15s;user-select:none;
+}
+.btn:hover{background:var(--border);color:var(--text)}
+.btn.primary{
+  background:var(--purple);border-color:var(--purple);color:#fff;
+}
+.btn.primary:hover{background:#6d28d9}
+.btn.primary.copied{background:var(--green);border-color:var(--green);color:#fff}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">P</div>
+  <h1>FPrompt</h1>
+  <span class="badge">v1.0</span>
+</div>
+
+<div id="loading" class="loading">
+  <div class="spinner"></div>
+  <div class="progress"><div class="bar"></div></div>
+  <div class="msg" id="msg">Initializing</div>
+</div>
+
+<div id="result" class="result hide">
+  <div class="result-header">
+    <span class="icon"></span>
+    <label>Generated Prompt</label>
+    <span class="count" id="charCount"></span>
+  </div>
+  <textarea id="promptText" readonly spellcheck="false"></textarea>
+  <div class="actions">
+    <button class="btn" id="closeBtn">Close</button>
+    <button class="btn primary" id="copyBtn">Copy</button>
+  </div>
+</div>
+
+<script src="progress.js"></script>
+</body>
+</html>

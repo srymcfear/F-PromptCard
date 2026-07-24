@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PromptCard Settings</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:system-ui,-apple-system,sans-serif;
+      background:#0f0f11;color:#e0e0e0;
+      padding:32px;max-width:560px;margin:0 auto;
+    }
+    h1{font-size:18px;font-weight:600;color:#a67cff;margin-bottom:24px;letter-spacing:.3px}
+    h2{font-size:13px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px}
+    .section{
+      background:#1a1a1e;border:1px solid #2a2a30;
+      border-radius:8px;padding:16px;margin-bottom:16px;
+    }
+    label{display:block;font-size:13px;color:#aaa;margin-bottom:6px}
+    input[type="text"],input[type="password"]{
+      width:100%;padding:8px 10px;background:#0f0f11;
+      border:1px solid #2a2a30;border-radius:4px;color:#e0e0e0;
+      font-size:13px;font-family:"SF Mono","Cascadia Code",monospace;
+    }
+    input:focus{outline:none;border-color:#7c3aed}
+    .btn-row{display:flex;gap:8px;margin-top:8px}
+    button{
+      padding:6px 14px;background:#7c3aed;color:#fff;
+      border:none;border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;
+    }
+    button:hover{background:#6d28d9}
+    .status{
+      font-size:12px;padding:8px 12px;border-radius:4px;margin-top:16px;
+    }
+    .status.ok{background:#0a2e1a;color:#4ade80;border:1px solid #166534}
+    .status.warn{background:#2e1a0a;color:#fbbf24;border:1px solid #78350f}
+    .hint{font-size:11px;color:#666;margin-top:4px;line-height:1.4}
+  </style>
+</head>
+<body>
+  <h1>PromptCard</h1>
+
+  <div class="section">
+    <h2>🍪 Gemini Cookie Auth</h2>
+    <label>GEMINI_1PSID</label>
+    <input type="password" id="psid" placeholder="Paste GEMINI_1PSID cookie value" autocomplete="off">
+    <div style="margin-top:10px">
+      <label>GEMINI_1PSIDTS</label>
+      <input type="password" id="psidts" placeholder="Paste GEMINI_1PSIDTS cookie value" autocomplete="off">
+    </div>
+    <div class="btn-row">
+      <button id="save">Save</button>
+      <button id="clear" class="secondary" style="background:#2a2a30;color:#ccc">Clear</button>
+    </div>
+    <div class="hint">Login to <strong>gemini.google.com</strong> in your browser, then open DevTools → Application → Cookies → copy the values.</div>
+  </div>
+
+  <div id="status" class="status"></div>
+  <script src="options.js"></script>
+</body>
+</html>
