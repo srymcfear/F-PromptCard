@@ -1,5 +1,7 @@
 # FPrompt — Image to Prompt AI
 
+**made by SrymC — FEΔR**
+
 Right-click any image → get a detailed style prompt for AI image generators (Midjourney, Stable Diffusion, DALL-E 3).
 
 ## Requirements
